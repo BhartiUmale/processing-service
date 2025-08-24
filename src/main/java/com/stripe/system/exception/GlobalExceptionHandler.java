@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
+
 	@ExceptionHandler(ProcessingException.class)
 	public ResponseEntity<ErrorRes> handleStripeProviderException(ProcessingException ex){
 		System.out.println("Stripe provider exception occured:"+ex);

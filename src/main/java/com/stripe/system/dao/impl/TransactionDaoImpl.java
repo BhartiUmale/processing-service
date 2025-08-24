@@ -18,7 +18,7 @@ import com.stripe.system.entity.TranactionEntity;
 @Repository
 public class TransactionDaoImpl implements TransactionDao{
 
-	
+
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -36,27 +36,27 @@ public class TransactionDaoImpl implements TransactionDao{
 				":merchantTxnReference, :txnReference, :providerReference, :errorCode, :errorMessage, :retryCount)";
 
 		SqlParameterSource params = new BeanPropertySqlParameterSource(txnEntity);
-        KeyHolder keyHolder = new GeneratedKeyHolder();
+		KeyHolder keyHolder = new GeneratedKeyHolder();
 
-        namedParameterJdbcTemplate.update(sql, params, keyHolder, new String[]{"id"});
-		
+		namedParameterJdbcTemplate.update(sql, params, keyHolder, new String[]{"id"});
+
 		int id = keyHolder.getKey() != null ? keyHolder.getKey().intValue() : -1;
 		txnDto.setId(id);
-		
+
 		System.out.println("Transaction created in DB||txn id:"+txnDto.getId()+" |txnReference:{}"+txnDto.getTxnReference());
-		
+
 		return txnDto;
 	}
 	@Override
 	public TranactionDTO getTransactionByRef(String txnReference) {
 		String sql = "SELECT * FROM payments.`Transaction` WHERE txnReference = :txnReference";
-		
+
 		MapSqlParameterSource params=new MapSqlParameterSource();
 		params.addValue("txnReference",txnReference);
 		System.out.println("**Recevied param:"+params);
 		try {
 			TranactionEntity transaction=namedParameterJdbcTemplate.queryForObject(sql, params, new BeanPropertyRowMapper<>(TranactionEntity.class));
-			
+
 			TranactionDTO txnDto=modelMapper.map(transaction,TranactionDTO.class);
 			System.out.println("**received data from DB TranactionDTO:"+txnDto);
 			return txnDto;
@@ -64,19 +64,37 @@ public class TransactionDaoImpl implements TransactionDao{
 			System.out.println("Error occur in catch block"+e);
 			return null;
 		}
-		
+
 	}
 
 	public TranactionDTO updateTransactionStatusDetails(TranactionDTO dto) {
-		
-		
+
+
 		String sql="UPDATE payments.`Transaction` SET txnStatusId=:txnStatusId,providerReference=:providerReference,errorCode=:errorCode,errorMessage=:errorMessage WHERE txnReference=:txnReference";
 		TranactionEntity transaction=modelMapper.map(dto, TranactionEntity.class);
 		SqlParameterSource params=new BeanPropertySqlParameterSource(transaction);
-		
+
 		namedParameterJdbcTemplate.update(sql, params);
 		System.out.println("***Transaction Status updated in DB:"+dto);
 		return dto;
 	}
-	
+	@Override
+	public TranactionDTO getTransactionByProviderReference(String providerReference) {
+		String sql = "SELECT * FROM payments.`Transaction` WHERE providerReference = :providerReference";
+
+		MapSqlParameterSource params=new MapSqlParameterSource();
+		params.addValue("providerReference",providerReference);
+		System.out.println("**Recevied param:"+params);
+		try {
+			TranactionEntity transaction=namedParameterJdbcTemplate.queryForObject(sql, params, new BeanPropertyRowMapper<>(TranactionEntity.class));
+
+			TranactionDTO txnDto=modelMapper.map(transaction,TranactionDTO.class);
+			System.out.println("**received data from DB TranactionDTO:"+txnDto);
+			return txnDto;
+		}catch(Exception e) {
+			System.out.println("Error occur in catch block"+e);
+			return null;
+		}
+	}
+
 }

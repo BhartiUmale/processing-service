@@ -4,6 +4,8 @@ public class ErrorRes {
 
 	private  String errorCode;
 	private  String errorMessage;
+	
+	
 	public String getErrorCode() {
 		return errorCode;
 	}

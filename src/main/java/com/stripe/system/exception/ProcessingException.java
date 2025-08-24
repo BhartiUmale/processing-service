@@ -3,10 +3,11 @@ package com.stripe.system.exception;
 import org.springframework.http.HttpStatus;
 
 public class ProcessingException extends RuntimeException {
+
 	private final String errorCode;
 	private final String errorMessage;
 	private final HttpStatus httpStatus;
-	
+
 	public ProcessingException(String errorCode, String errorMessage,HttpStatus httpStatus) {
 		super();
 		this.errorCode = errorCode;
@@ -32,7 +33,7 @@ public class ProcessingException extends RuntimeException {
 				+ httpStatus + "]";
 	}
 
-	
-	
+
+
 
 }

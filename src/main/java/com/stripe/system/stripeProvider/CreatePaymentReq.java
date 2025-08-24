@@ -2,21 +2,11 @@ package com.stripe.system.stripeProvider;
 
 import java.util.List;
 
-import lombok.Data;
-
 
 public class CreatePaymentReq {
 	private String successUrl;
 	private String cancelUrl;
 	private List<LineItem> lineItem;
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

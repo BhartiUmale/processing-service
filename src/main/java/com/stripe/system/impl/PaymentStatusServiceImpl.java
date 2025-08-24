@@ -14,11 +14,11 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
 
 	@Autowired
 	private PaymentStatusFactory paymentStatusFactory;
-	
+
 	@Override
 	public TranactionDTO processStatus(TranactionDTO tranactionDTO) {
 		System.out.println("In PaymentStatusServiceImpl reviced TranactionDTO:"+tranactionDTO);
-		
+
 		TransactionStatusEnum statusEnum=TransactionStatusEnum.getByName(tranactionDTO.getTxnStatus());
 		if(statusEnum == null) {
 			System.out.println("Invalid status received status:"+tranactionDTO.getTxnStatus());
@@ -29,8 +29,8 @@ public class PaymentStatusServiceImpl implements PaymentStatusService {
 			//TODO custom exception handling
 		}
 		TranactionDTO txnDto=statusHandler.processStatus(tranactionDTO);
-		
-		
+
+
 		return txnDto;
 	}
 

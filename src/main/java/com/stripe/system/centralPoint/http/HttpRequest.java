@@ -9,9 +9,9 @@ public class HttpRequest {
 	private String url;
 	private HttpHeaders headers;
 	private Object requestBody;
-	
-	
-	
+
+
+
 	public HttpRequest() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -47,9 +47,9 @@ public class HttpRequest {
 	public void setRequestBody(Object requestBody) {
 		this.requestBody = requestBody;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

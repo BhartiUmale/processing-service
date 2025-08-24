@@ -52,13 +52,13 @@ public class AppConfig {
 			protected void configure() {
 				using(new PaymentMethodEnumIdToStringConverter())
 				.map(source.getPaymentMethodId(), destination.getPaymentMethod());
-				
+
 				using(new PaymentTypeEnumIdToStringConverter())
 				.map(source.getPaymentTypeId(), destination.getPaymentType());
-				
+
 				using(new ProviderEnumIdToStringConverter())
 				.map(source.getProviderId(), destination.getProvider());
-				
+
 				using(new TranactionStatusEnumIdToStringConverter())
 				.map(source.getTxnStatusId(), destination.getTxnStatus());
 			}
