@@ -34,6 +34,7 @@ public class StripeWebHookServiceImpl implements StripeWebHookService {
 
 	@Override
 	public void processEvent(StripeEventDTO eventDto) {
+		
 		if(CHECKOUT_SESSION_COMPLETED.equals(eventDto.getType())) {
 			System.out.println("checkout Session completed event received");
 			
