@@ -38,6 +38,7 @@ public class PaymentServiceImpl implements PaymentService {
 	@Autowired
 	private HttpServiceEngine httpServiceEngine;
 
+
 	@Autowired
 	private Gson gson;
 
@@ -75,9 +76,6 @@ public class PaymentServiceImpl implements PaymentService {
 
 
 		txnDto.setTxnStatus(TransactionStatusEnum.INITIATED.getName());
-
-
-
 		HttpRequest httpRequest = prepareHttpReq(reqDto);
 
 		try {
